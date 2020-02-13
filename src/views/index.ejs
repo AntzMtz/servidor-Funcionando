@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Get Current URL in JavaScript</title>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script> -->
+    <style>
+        td {
+            padding: 5px;
+            background-color: chartreuse;
+            width: 50%;
+            border-top: 1px dashed forestgreen;
+            margin: 15px auto;
+            text-align: center;
+        }
+        
+        div {
+            margin: 2px auto;
+        }
+        
+        body {
+            background-color: cornflowerblue;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <!-- <h1>Hola</h1> -->
+
+    <h1>
+        <%=title%>
+    </h1>
+    <nav>
+        <ul>
+            <li>
+                <a href="/products">list Of Products</a></li>
+        </ul>
+    </nav>
+
+
+
+    <div>
+        <h1 id="Titulo">AJAX</h1>
+        <button type="button" id="boton">Get Page URL</button>
+        <ul id="list">
+
+        </ul>
+    </div>
+    <div>
+        <form name="registro_usuarios" id="registro">
+            <h1 id="Titulo2">AJAX POST</h1>
+            <div>
+                Usuario: &nbsp;
+                <input type="text" id="user">
+            </div>
+            <div>
+                Contraseña:&nbsp;
+                <input type="text" id="pass">
+            </div>
+            <div>
+                <input type="button" id="BotonReg" value="Registro">
+            </div>
+        </form>
+    </div>
+    <script>
+        var Salida = "";
+        var regi = document.getElementById("BotonReg");
+        var form1 = document.getElementById("registro");
+
+        const sendData = (data) => {
+            let xhr1
+            if (window.XMLHttpRequest) {
+                xhr1 = new XMLHttpRequest()
+                console.log("Si soporta");
+                console.log(data);
+
+                const formData = new FormData(data);
+
+            } else {
+                console.log("No soporta");
+
+            }
+        }
+
+        regi.addEventListener("click", (e) => {
+            e.preventDefault()
+            console.log("sidio click");
+            sendData(form1);
+
+        })
+
+
+
+
+
+
+        var boton = document.getElementById("boton");
+        boton.addEventListener('click', () => {
+            let xhr;
+
+            // var request = new Request('https://davidwalsh.name/demo/arsenal.json', {
+            // var Url30 = new Request('https://gsindical-gral-lazarocardenas.herokuapp.com/dishes', {
+            //     mode: 'no-cors'
+            // });
+            // console.log(request.response);
+
+            // const Url30 = 'https://xkcd.com/info.0.json';
+            const Url30 = 'https://gsindical-gral-lazarocardenas.herokuapp.com/dishes';
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+                console.log("si tiene");
+                xhr.open('GET', Url30);
+                xhr.addEventListener('load', (data) => {
+                    console.log(JSON.parse(data.target.response))
+
+
+                    var JSONDATA = (JSON.parse(data.target.response))
+                    var obj = JSONDATA[0].comments;
+                    console.log(obj);
+                    var body = document.getElementsByTagName("body")[0];
+                    var list = document.getElementById("list")
+                    list = document.createElement("TABLE")
+                    var tblBody = document.createElement("tbody");
+
+                    var hilera;
+                    var celda;
+                    var texto;
+
+                    hilera = document.createElement("tr")
+                    for (var i = 0; i < 2; i++) {
+                        celda = document.createElement("td");
+                        if (i == 0) {
+                            Salida = "_ID";
+
+                        } else if (i == 1) {
+                            Salida = "RATING";
+                        }
+                        texto = document.createTextNode(Salida);
+                        celda.appendChild(texto);
+                        hilera.appendChild(celda);
+                        tblBody.appendChild(hilera);
+
+
+                    }
+
+
+
+                    for (var useri of obj) {
+                        console.log(useri._id);
+                        hilera = document.createElement("tr")
+                        for (var i = 0; i < 2; i++) {
+                            celda = document.createElement("td");
+                            if (i == 0) {
+                                Salida = `${useri._id}`;
+
+                            } else if (i == 1) {
+                                Salida = `${useri.rating}`;
+                            }
+                            texto = document.createTextNode(Salida);
+                            celda.appendChild(texto);
+                            hilera.appendChild(celda);
+                            tblBody.appendChild(hilera);
+
+
+                        }
+                    }
+                    list.appendChild(tblBody);
+                    body.appendChild(list);
+
+                })
+                xhr.send()
+
+            } else {
+                xhr = new ActiveXObject("Microsoft.XMHTTP")
+            }
+
+        })
+    </script>
+
+
+
+
+</body>
+
+</html>
