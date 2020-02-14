@@ -22,24 +22,26 @@ const produ = (req, res, next) => {
 }
 
 const addprodu = (req, res, next) => {
-
-    console.log(req.body)
+    console.log("Inicio");
+    
+    
+    
+    // console.log(req.body)
     const nuevo = req.body.newItem
     const Url = req.body.newUrl
-    console.log("URL" + Url);
-
+    // console.log("URL" + Url);
+    console.log("URLRuta: "+ Url.substring(Url.length - 9,Url.length));
+    var URLSUB=Url.substring(Url.length - 9,Url.length);
     items.push({
         id: items.length + 1,
         name: nuevo
     });
 
-    // if (Url == 'http://localhost:5000/new-productsdd') {
-    // res.redirect('/products');
-    // } else {
+    if (URLSUB == '/products') {
+    res.redirect('/products');
+    } else {
     res.send('La insercion fue correcta');
-    // }
-    console.log("result " + res);
-
+    }
 
 
 }
