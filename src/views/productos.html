@@ -17,17 +17,67 @@
             <%}%>
     </ul>
     <h3>Agregar nuevo producto</h3>
-    <form action="/products" method="POST">
+    <!-- <form action="/new-products" method="POST"> -->
+    <form>
         <input type="text" name="newItem" id="newItem" value="">
-        <!-- <input type="button" name="boton" id="boton" value="Add"> -->
-        <button>
+        <a id="newUrl">"http://localhost:5000/new-products"</a>
+        <input type="button" name="boton" id="boton" value="Add">
+        <!-- <button id="boton" onclick="poster">
             Add
-        </button>
+        </button> -->
     </form>
     <script>
-        var Nuevo = document.getElementById('newItem');
-        var Boton = document.getElementById('boton');
-        Nuevo.focus();
+        // var Nuevo = document.getElementById('newItem');
+        // var URL = document.getElementById('newUrl');
+        // var Boton = document.getElementById('boton');
+        // Nuevo.focus();
+        var boton = document.getElementById("boton");
+        // function poster() {
+        var dat = document.getElementById("newItem");
+
+        boton.addEventListener('click', () => {
+                let xhr;
+                var URLactual = window.location.href;
+                console.log("URL: " + URLactual);
+
+                var Salida = {
+                    newItem: dat.value,
+                    newUrl: URLactual
+                };
+
+                const Url30 = "http://localhost:5000/new-products";
+                if (window.XMLHttpRequest) {
+
+                    xhr = new XMLHttpRequest();
+                    console.log("si tiene");
+                    const j34 = JSON.stringify(Salida);
+                    console.log(j34);
+                    xhr.open('POST', Url30);
+
+
+                    xhr.setRequestHeader('Content-Type', "application/json");
+                    xhr.onload = function() {
+                        // do something to response
+                        console.log(xhr.responseURL);
+                    };
+                    xhr.send(j34);
+
+
+
+                    // xhr.addEventListener('load', (data) => {
+                    //     console.log("datos: " + data.timeStamp);
+
+
+
+
+
+                } else {
+                    console.error("No Soporta");
+
+
+                }
+            })
+            // }
     </script>
 </body>
 

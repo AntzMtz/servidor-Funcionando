@@ -22,16 +22,36 @@ const produ = (req, res, next) => {
 }
 
 const addprodu = (req, res, next) => {
-    console.log(req.body.newItem)
+
+    console.log(req.body)
     const nuevo = req.body.newItem
+    const Url = req.body.newUrl
+    console.log("URL" + Url);
+
     items.push({
         id: items.length + 1,
         name: nuevo
     });
+
+    // if (Url == 'http://localhost:5000/new-productsdd') {
+    // res.redirect('/products');
+    // } else {
+    res.send('La insercion fue correcta');
+    // }
+    console.log("result " + res);
+
+
+
+}
+
+const getprodu = (req, res, next) => {
+
     res.redirect('/products');
+
 }
 module.exports = {
     prin,
     produ,
-    addprodu
+    addprodu,
+    getprodu
 }

@@ -4,6 +4,7 @@ const indexControler = require('../controllers/rutas');
 
 routers.get('/', indexControler.prin);
 routers.get('/products', indexControler.produ);
-routers.post('/products', indexControler.addprodu);
+routers.post('/new-products', indexControler.addprodu);
+routers.get('/new-products', indexControler.getprodu);
 
 module.exports = routers;
