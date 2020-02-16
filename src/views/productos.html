@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <ul>
+    <ul id="ud">
         <% for(var i=0;i<items.length;i++){ %>
             <li>
                 <%= items[i].name%>
@@ -20,7 +20,7 @@
     <!-- <form action="/new-products" method="POST"> -->
     <form id="Form" >
         <input type="text" name="newItem" id="newItem" value="">
-        <input type="hidden" name="newUrl" id="newUrl" value="">
+        <!-- <input type="hidden" name="newUrl" id="newUrl" value=""> -->
         <input type="button" name="boton" id="boton" value="Add">
         <!-- <button id="boton" onclick="poster">
             Add
@@ -28,66 +28,78 @@
     </form>
     <script>
         var form = document.getElementById("Form");
-        var boton = document.getElementById("boton");        
-        var dat = document.getElementById("newItem");
+        var uLista = document.getElementById("ud");
         var URLactual1 = window.location;
-        document.getElementById("newUrl").value= URLactual1 ;
-        var URLactual = document.getElementById("newUrl");
-        
-        
-        
+        var URLactual;
+        var dat, boton;
         function comenzar(){
-            console.log("URLINI"+URLactual.value);
-            console.log("URL2: "+URLactual1);
             
+            fun1();
             obtDato();
-            
+
         }
         
         function obtDato(){
-            
-        
-        
-        boton.addEventListener('click', () => {
-                
-                
-                form.action="/new-products"
-                form.submit();
+            form.boton.addEventListener('click', () => {
+                // form.action="/new-products"
                 let xhr;
-                console.log("URL3: " + URLactual);
-
                 var Salida = {
                     newItem: dat.value,
                     newUrl: URLactual.value
                 };
-
                 const Url30 = "http://localhost:5000/new-products";
+                const Url31 = "http://localhost:5000/products";
                 if (window.XMLHttpRequest) {
-
                     xhr = new XMLHttpRequest();
-                    console.log("si tiene");
                     const j34 = JSON.stringify(Salida);
-                    console.log("hola: "+j34);
                     xhr.open('POST', Url30);
-
-
                     xhr.setRequestHeader('Content-Type', "application/json");
-                    // xhr.onload = function() {
-                    //     // do something to response
-                    //     console.log(xhr.responseURL);
-                    // };
+                    xhr.onload = function() {
+                        // console.log(xhr.responseText);
+                        
+                        if(xhr.status==500){
+                            console.log(xhr.statusText);
+                            console.log(xhr.response);
+                        }else{
+                            var jstr=(JSON.parse(xhr.response));
+                            console.log(xhr.statusText);
+                            console.log(xhr.response);
+                            // console.log("respon: "+jstr[0].items[0].name);
+                            Lista(jstr);
+                        } 
+                       
+                    }
                     xhr.send(j34);
                     
-                    fun1();
+                    // uLista.innerHTML="";
                 } else {
                     console.error("No Soporta");
                 }
+                // form.submit();
             })
 
         }
+        function Lista(jstr) {
+            uLista.innerHTML="";
+            
+            var li, conso ;
+            // console.log("item: "+ jstr[0].items[0].name);
+            var Ul = document.createElement("ul");
+            
+            // var ul = document.getElementById("ud");
+            var li;
+            for(var i = 0;i<jstr[0].items.length;i++){
+                li = document.createElement("li");
+                li.appendChild(document.createTextNode(jstr[0].items[i].name));
+                uLista.appendChild(li);
+            }
+        }
         function fun1(){
-            
-            
+            form.innerHTML+='<input type="hidden" name="newUrl" id="newUrl" value="">';    
+            boton = document.getElementById("boton");        
+            dat = document.getElementById("newItem");
+            document.getElementById("newUrl").value= URLactual1 ;
+            URLactual= document.getElementById("newUrl");
         }
         
         window.addEventListener('load',comenzar,false)
