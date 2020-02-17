@@ -9,8 +9,8 @@ const items = [
 ]
 
 var listaBlanca = [
-    'http://127.0.0.1:8081/components/login/src/GeneQr/Envia.html',
-    'http://localhost:5000/products'
+    'http://127.0.0.1:8081',
+    'http://localhost:5000'
 ]
 
 var Url = "http://";
@@ -36,46 +36,45 @@ const rut = (req, res, next) => {
     next();
 }
 var corsOptions1;
-var corsOptions = function(req, callback, res) {
+// var corsOptions = function(req, callback, res) {
 
-    if (listaBlanca.indexOf(Url) !== -1) {
-        corsOptions1 = { origin: true }
-        console.log("res: " + corsOptions1.origin);
-        callback(null, corsOptions1)
-    } else {
-        corsOptions1 = { origin: false }
-        console.log("res: " + corsOptions1.origin);
-
-        callback(new Error(corsOptions1.origin))
-    }
-
-
-}
-
-// var corsOptions =
-//  {
-// origin: function(origin, callback) {
-//     if (listaBlanca.indexOf(Url) > -1) {
-//         // console.log("ER:"+listaBlanca.indexOf(Url))
-//         callback(null, true)
+//     if (listaBlanca.indexOf(origin) !== -1) {
+//         corsOptions1 = { origin: true }
+//         console.log("res: " + corsOptions1.origin);
+//         callback(null, corsOptions1)
 //     } else {
-//         console.log("ER1"+Url);
-//         //  Error="NO SE PUEDE POR CORS";  
-//         // callback(Error)
-//         // var nombre = ('Por favor ingresa tu nombre.')
-//         callback(new Error("mojj"))
+//         corsOptions1 = { origin: false }
+//         console.log("res: " + corsOptions1.origin);
+
+//         callback(new Error(corsOptions1.origin))
 //     }
 
-// }
+
 // }
 
+var corsOptions = {
+    origin: function(origin, callback) {
+        if (listaBlanca.indexOf(origin) > -1) {
+            // console.log("ER:"+listaBlanca.indexOf(Url))
+            callback(null, true)
+        } else {
+            console.log("ER1" + origin);
+            //  Error="NO SE PUEDE POR CORS";  
+            // callback(Error)
+            // var nombre = ('Por favor ingresa tu nombre.')
+            callback(new Error("mojj"))
+        }
+
+    }
+}
+
 const addprodu = (req, res, next) => {
-    console.log("Estatus: " + corsOptions1.origin);
-    if (corsOptions1.origin == false) {
-        // res.json([{
-        //     items: "No tienes acceso al servidor"
-        // }])
-    } else {
+        // console.log("Estatus: " + corsOptions1.origin);
+        // if (corsOptions1.origin == false) {
+        //     // res.json([{
+        //     //     items: "No tienes acceso al servidor"
+        //     // }])
+        // } else {
 
         const nuevo = req.body.newItem
         const Url = req.body.newUrl
@@ -89,7 +88,7 @@ const addprodu = (req, res, next) => {
             items: items
         }])
     }
-}
+    // }
 
 const getprodu = (req, res, next) => {
     res.redirect('/products');
