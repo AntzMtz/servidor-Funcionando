@@ -9,7 +9,7 @@ const items = [
 ]
 
 var listaBlanca = [
-    'http://127.0.0.1:8081/components/login/src/GeneQr/Envia.html',
+    'http://128.0.0.1:8081/components/login/src/GeneQr/Envia.html',
     'http://localhost:5000/products'
 ]
 
@@ -35,26 +35,10 @@ const rut = (req, res, next) => {
     Url = req.body.newUrl
     next();
 }
-var corsOptions1;
-// var corsOptions = function(req, callback, res) {
-
-//     if (listaBlanca.indexOf(origin) !== -1) {
-//         corsOptions1 = { origin: true }
-//         console.log("res: " + corsOptions1.origin);
-//         callback(null, corsOptions1)
-//     } else {
-//         corsOptions1 = { origin: false }
-//         console.log("res: " + corsOptions1.origin);
-
-//         callback(new Error(corsOptions1.origin))
-//     }
-
-
-// }
-
 var corsOptions = {
     origin: function(origin, callback) {
-        if ((listaBlanca.indexOf(Url) > -1) || origin) {
+        // if ((listaBlanca.indexOf(Url) > -1) || origin) {
+        if (listaBlanca.indexOf(Url) !== -1 || !origin) {
             // console.log("ER:"+listaBlanca.indexOf(Url))
             callback(null, true)
         } else {
