@@ -50,7 +50,9 @@
                 };
                 // const Url30 = "http://localhost:5000/new-products";
                 // const Url31 = "http://localhost:5000/products";
-                Url30 = URLactual1;
+                Url30 = location.origin + "/new-products";
+                console.log("URL" + Url30);
+
                 if (window.XMLHttpRequest) {
                     xhr = new XMLHttpRequest();
                     const j34 = JSON.stringify(Salida);
