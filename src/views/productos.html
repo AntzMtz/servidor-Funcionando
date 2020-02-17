@@ -18,7 +18,7 @@
     </ul>
     <h3>Agregar nuevo producto</h3>
     <!-- <form action="/new-products" method="POST"> -->
-    <form id="Form" >
+    <form id="Form">
         <input type="text" name="newItem" id="newItem" value="">
         <!-- <input type="hidden" name="newUrl" id="newUrl" value=""> -->
         <input type="button" name="boton" id="boton" value="Add">
@@ -32,14 +32,15 @@
         var URLactual1 = window.location;
         var URLactual;
         var dat, boton;
-        function comenzar(){
-            
+
+        function comenzar() {
+
             fun1();
             obtDato();
 
         }
-        
-        function obtDato(){
+
+        function obtDato() {
             form.boton.addEventListener('click', () => {
                 // form.action="/new-products"
                 let xhr;
@@ -56,21 +57,21 @@
                     xhr.setRequestHeader('Content-Type', "application/json");
                     xhr.onload = function() {
                         // console.log(xhr.responseText);
-                        
-                        if(xhr.status==500){
+
+                        if (xhr.status == 500) {
                             console.log(xhr.statusText);
-                            console.log(xhr.response);
-                        }else{
-                            var jstr=(JSON.parse(xhr.response));
+                            console.log(xhr);
+                        } else {
+                            var jstr = (JSON.parse(xhr.response));
                             console.log(xhr.statusText);
                             console.log(xhr.response);
                             // console.log("respon: "+jstr[0].items[0].name);
                             Lista(jstr);
-                        } 
-                       
+                        }
+
                     }
                     xhr.send(j34);
-                    
+
                     // uLista.innerHTML="";
                 } else {
                     console.error("No Soporta");
@@ -79,30 +80,32 @@
             })
 
         }
+
         function Lista(jstr) {
-            uLista.innerHTML="";
-            
-            var li, conso ;
+            uLista.innerHTML = "";
+
+            var li, conso;
             // console.log("item: "+ jstr[0].items[0].name);
             var Ul = document.createElement("ul");
-            
+
             // var ul = document.getElementById("ud");
             var li;
-            for(var i = 0;i<jstr[0].items.length;i++){
+            for (var i = 0; i < jstr[0].items.length; i++) {
                 li = document.createElement("li");
                 li.appendChild(document.createTextNode(jstr[0].items[i].name));
                 uLista.appendChild(li);
             }
         }
-        function fun1(){
-            form.innerHTML+='<input type="hidden" name="newUrl" id="newUrl" value="">';    
-            boton = document.getElementById("boton");        
+
+        function fun1() {
+            form.innerHTML += '<input type="hidden" name="newUrl" id="newUrl" value="">';
+            boton = document.getElementById("boton");
             dat = document.getElementById("newItem");
-            document.getElementById("newUrl").value= URLactual1 ;
-            URLactual= document.getElementById("newUrl");
+            document.getElementById("newUrl").value = URLactual1;
+            URLactual = document.getElementById("newUrl");
         }
-        
-        window.addEventListener('load',comenzar,false)
+
+        window.addEventListener('load', comenzar, false)
             // }
     </script>
 </body>
