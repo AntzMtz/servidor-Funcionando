@@ -9,8 +9,7 @@ const items = [
 ]
 
 var listaBlanca = [
-    'http://128.0.0.1:8081/components/login/src/GeneQr/Envia.html',
-    'http://localhost:5000/products'
+    'http://128.0.0.1:8081/components/login/src/GeneQr/Envia.html'
 ]
 
 var Url = "http://";
@@ -38,7 +37,7 @@ const rut = (req, res, next) => {
 var corsOptions = {
     origin: function(origin, callback) {
         // if ((listaBlanca.indexOf(Url) > -1) || origin) {
-        if (listaBlanca.indexOf(Url) !== -1 || !origin) {
+        if (listaBlanca.indexOf(Url) !== -1 || origin) {
             // console.log("ER:"+listaBlanca.indexOf(Url))
             callback(null, true)
         } else {
