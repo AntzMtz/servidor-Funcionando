@@ -53,26 +53,19 @@ var corsOptions = {
 }
 
 const addprodu = (req, res, next) => {
-        // console.log("Estatus: " + corsOptions1.origin);
-        // if (corsOptions1.origin == false) {
-        //     // res.json([{
-        //     //     items: "No tienes acceso al servidor"
-        //     // }])
-        // } else {
 
-        const nuevo = req.body.newItem
-        const Url = req.body.newUrl
-        var URLSUB = Url.substring(Url.length - 9, Url.length);
-        items.push({
-            id: items.length + 1,
-            name: nuevo
-        });
-        console.log("Utre:" + URLSUB);
-        res.json([{
-            items: items
-        }])
-    }
-    // }
+    const nuevo = req.body.newItem
+    const Url = req.body.newUrl
+    var URLSUB = Url.substring(Url.length - 9, Url.length);
+    items.push({
+        id: items.length + 1,
+        name: nuevo
+    });
+    console.log("Utre:" + URLSUB);
+    res.json([{
+        items: items
+    }])
+}
 
 const getprodu = (req, res, next) => {
     res.redirect('/products');
