@@ -70,12 +70,17 @@ const getprodu = (req, res, next) => {
     res.redirect('/products');
 }
 
+const getLinkAdd = (req, res, next) => {
+    res.render('../views/Links/add.ejs')
+
+}
 module.exports = {
     prin,
     produ,
     addprodu,
     getprodu,
     rut,
-    corsOptions
+    corsOptions,
+    getLinkAdd
 
 }

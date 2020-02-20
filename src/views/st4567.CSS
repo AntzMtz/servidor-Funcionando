@@ -1,0 +1,16 @@
+td {
+    padding: 5px;
+    background-color: chartreuse;
+    width: 50%;
+    border-top: 1px dashed forestgreen;
+    margin: 15px auto;
+    text-align: center;
+}
+
+div {
+    margin: 2px auto;
+}
+
+body {
+    background-color: cornflowerblue;
+}
